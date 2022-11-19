@@ -1,0 +1,95 @@
+div.faq-container {
+    height: auto;
+    top: 40px;
+    margin-bottom: 270px;
+    display: block;
+    position: relative;
+}
+
+.faq-content {
+    position: relative;
+    top: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.faq-items {
+    position: relative;
+    top: 50px;
+    width: 100%;
+}
+
+.faq-items > div {
+    width: 75%;
+    margin: 0 auto;
+}
+
+.faq-content h4 {
+    font-size: 27px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.faq-baner {
+    padding: 0;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    justify-content: center;
+}
+
+.faq-baner h4 {
+    margin: 0;
+    color: #fff;
+    position: relative;
+    z-index: 1;
+    font-size: 30px;
+}
+
+.baner-img {
+    display: block;
+    width: 100%;
+    position: absolute;
+    object-fit: cover;
+    top: 0px;
+    height: 100%;
+}
+
+.accard-cont {
+    position: relative;
+}
+
+/*
+.accard-cont > ul {
+    width: 80%;
+    position: relative;
+    margin: 0 auto;
+}*/
+
+.accard-cont li:last-child {
+    border-bottom: 1px solid black;
+}
+
+.ship-text h5 {
+    font-size: 20px;
+    font-family: 'Montserrat',
+        sans-serif;
+    margin: 0;
+}
+
+.ship-text p {
+    font-size: 15px;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 25px;
+}
+
+.ship-text {
+    margin-bottom: 60px;
+}
+
+.ship-block {
+    position: relative;
+    top: 0;
+    padding-bottom: 0;
+}

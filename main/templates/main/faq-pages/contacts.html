@@ -1,0 +1,44 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+
+{% block title %} Contact page {% endblock %}
+
+
+{% block content %}
+    <div class="content some-page">
+        <div class="contact-content d-flex">
+            <div class="contact-side">
+                <div class="contact-inf" id="shops">
+                    <h5>Customer Service</h5>
+                    <p>Tel: 123-456-7890</p> 
+                    <p>Email: info@my-domain.com</p> 
+                </div>
+                <hr class="black-hr mini-hr">
+                <div class="adress-block">
+                    <h5>Our Shops</h5>
+                    <ul class="adress-list">
+                        <li><span class="shop-names">Shop 1</span>500 Terry Francois Street, San Francisco, CA 94158</li>
+                        <li><span class="shop-names">Sho00p 2</span>500 Terry Francois Street, San Francisco, CA 94158</li>
+                        <li><span class="shop-names">Shop 3</span>500 Terry Francois Street, San Francisco, CA 94158</li>
+                        <li><span class="shop-names">Shop 4</span>500 Terry Francois Street, San Francisco, CA 94158</li>
+                        <li><span class="shop-names">Shop 5</span>500 Terry Francois Street, San Francisco, CA 94158</li>
+                        <li><span class="shop-names">Shop 6</span>500 Terry Francois Street, San Francisco, CA 94158</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="email-connect">
+                <h5>CONTACT US</h5>
+                <h6 class="less-size">WITH ANY INQUIRY</h6>
+                <form action="{% url 'feedback' %}" method="post" class="email-post-form">
+                    {% csrf_token %}
+                    <input type="text" name="subject" id="" placeholder="Name" class="mail-inp">
+                    <input type="email" name="from_mail" id="from_mail" placeholder="Email" class="mail-inp">   
+                    <br>
+                    <textarea name="message" id="" cols="30" rows="10" placeholder="Type your message here..." class="mail-inp"></textarea><br>
+                    <button class="send-email btn-base" type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'main/faq-pages/FAQ-base.html' %}
+{% load static %}
+
+
+{% block title %} FAQ {% endblock %}
+
+{% block fon_css %}
+{% endblock %}
+
+
+{% block page_header %}
+    <h4>FREQUENTLY ASKED QUESTIONS</h4> 
+    <img src="{% static 'main/img/faq-fon.png' %}" alt="" class="baner-img">    
+{% endblock %}
+
+{% block last_header %} <h4>Frequently asked questions</h4> {% endblock %}
+
+
+{% block faq_content %}
+    <div class="accard-cont">
+        <ul class="accardion">
+            {% for faq in faqs %}
+            <li class="acrd">
+                <div class="header">
+                    <h5>{{ faq.question }}</h5>
+                    <span class="open-acrd material-symbols-outlined" data-oper="expand_less">expand_more</span>
+                </div>
+                <p class="text-deck">{{ faq.answer }}</p>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <script src="{% static 'main/js/accardion.js' %}"></script>
+{% endblock %}

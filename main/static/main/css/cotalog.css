@@ -1,0 +1,145 @@
+.material-symbols-outlined {
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 48
+}
+
+
+.cotalog-menu {
+    position: relative;
+    top: 150px;
+    left: 0;
+    border-top: 1px solid black;
+    height: auto;
+    padding-bottom: 40px;
+    z-index: 2;
+    margin-bottom: 50px;
+}
+
+.cotalog-menu h4 {
+    font-family: sans-serif;
+    font-size: 25px;
+    text-align: center;
+}
+
+.cotalog-menu::-webkit-scrollbar {
+    width: 0;
+}
+
+.categories {
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    padding: 0;
+    margin: 0 auto;
+    width: 85%;
+    align-items: center;
+}
+
+.category {
+    height: 40px;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.category p {
+    font-weight: 600;
+}
+
+.category p, .post_c {
+    font-family: 'Montserrat',
+        sans-serif;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    margin-right: 30px;
+}
+
+.category button {
+    background: none;
+    width: 20px;
+    height: 20px;
+    box-sizing: border-box;
+    border: none;
+    padding: 0;
+    padding-right: 5px;
+    transition: 1s;
+    text-align: center;
+    cursor: pointer;
+}
+
+.post_categories {
+    display: none;
+    list-style-type: none;
+    position: relative;
+    padding: 10px 0;
+    background: #fff;
+    width: 80%;
+    z-index: 3;
+    transition: 1s;
+    border-top: 1px solid black;
+    box-sizing: border-box;
+    border-bottom: 1px solid black;
+}
+
+.category.active .post_categories {
+    display: block;
+}
+
+
+
+.category.active .btn-down {
+    transform: rotate(-180deg);
+}
+
+.post_c {
+    margin-bottom: 10px;
+    cursor: pointer;
+    font-size: 13px;
+    display: block;
+    transition: 0.6s;
+    text-align: center;
+    width: 100%;
+}
+
+.post_c > a {
+    text-decoration: none;
+    color: #000;
+}
+
+
+.post_c:hover {
+    opacity: 0.8;
+}
+
+.add-prod-form.autin-form.filter-form {
+    width: 50%;
+    margin: 0 auto;
+    padding-top: 50px;
+}
+
+.filter-form input, .filter-form select {
+    width: 100%;
+    height: 40px;
+    outline: none;
+    margin-bottom: 30px;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    border: 1px solid #000;
+    font-size: 14px;
+}
+
+div.filter-price {
+    font-family: sans-serif;
+    width: 40%;
+}
+
+.filter-price input {
+    width: 80%;
+    margin-right: -16px;
+}

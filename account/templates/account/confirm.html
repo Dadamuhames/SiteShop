@@ -1,0 +1,15 @@
+{% extends 'account/form-base.html' %}
+
+
+
+{% block form_title %} Confirm your email {% endblock %}
+
+
+{% block form_content %}
+<form method="post" action="{% url 'confirm' code user.id %}" style="height: 300px;" class="autin-form" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label for="name">Enter verify code</label><br>
+    <input type="text" name="code"><br>
+    <button class="btn-base atfc-btn">Submit</button>
+</form>
+{% endblock %}

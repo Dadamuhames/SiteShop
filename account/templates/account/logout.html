@@ -1,0 +1,10 @@
+{% extends 'account/form-base.html' %}
+
+
+
+{% block form_title %}
+<p class="logout-qw">
+    You are logged out. <br>
+    <a href="{% url 'login' %}">Log In</a> / <a href="{% url 'registration-page' %}">Sign Up</a>
+</p>
+{% endblock %}

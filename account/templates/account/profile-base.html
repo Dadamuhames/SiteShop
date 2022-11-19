@@ -1,0 +1,116 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+
+{% block title %} {{ user.username }} {% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'account/css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="block user-dashboard">
+        <div class="user-inf-block content-inf-blocks">
+            <button class="more-deteils" id="lg-btn">
+                <img src="{% static 'account/img/det-dots.png' %}" alt="">
+            </button>
+            <a href="{% url 'logout' %}" class="logout-lnk" id="lg-block">Выйти</a>
+            <img src="{{ profile.prof_img.url }}" alt="" class="user-img">
+            <p class="user-name">{{ user.username }}</p>
+            <p class="user-status admin">User</p>
+            <div class="lnk-btn-block">
+                <button class="lnk-btn">0 <br> Comments</button>
+            </div>
+        </div>
+        <ul class="user-pages-block content-inf-blocks">
+            <li class="page-li active">Profile</li>
+            <li class="page-li">Comments</li>
+            <li class="page-li">My Account</li>
+        </ul>
+        <div class="pages-block content-inf-blocks">
+            <div class="pages active">
+                <div class="page-header">
+                    <h3>Profile</h3>
+                    <h5>Registration date: 20 avg. 2022y</h5>
+                </div>
+                <div class="about-me-block">
+                    <h6>About Me</h6>
+                    <p>{{ profile.bio }}</p>
+                </div>
+            </div>
+            <div class="pages">
+                <div class="page-header">
+                    <h3>Comments</h3>
+                    <h5>Last comment</h5>
+                </div>
+                <div class="blog-comment">
+                    <ul class="comments">
+                        {% for comment in comments %}
+                        <li class="clearfix">
+                            <a href="{% url 'products-page' comment.product.id %}">
+                                <img src="{{ comment.profile.prof_img.url }}" class="avatar" alt="">
+                            </a>
+                            <div class="post-comments">
+                                <p class="meta">{{ comment.date.date }} <a href="#">{{ comment.user.username }}</a> says : <i
+                                        class="pull-right"></i></p>
+                                <p>{{ comment.text }}</p>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="pages settings">
+                <div class="page-header">
+                    <h3>{{ user.username }}'s Account</h3>
+                    <h5>See profile</h5>
+                </div>
+                <div class="account-block">
+                    <h6>Information display</h6>
+                    <p>The user card is visible to all users of this site</p>
+                    <br>
+                    <div class="d-flex inputs">
+                        <label class="field-name" for="username">User name: </label><br><p>{{ user.username }}</p>
+                    </div>
+                    <br>
+                    <div class="d-flex inputs">
+                        <div class="inp-side">
+                            <label class="field-name" for="name">Name:</label><br>
+                            <p>{{ user.first_name }}</p><br>
+                            <br>
+                            <label class="field-name" for="email">Email:</label><br>
+                            <p>{{ user.email }}</p>
+                        </div>
+                        <div class="inp-side">
+                            <label class="field-name" for="name">Surename:</label><br>
+                            <p>{{ user.last_name }}</p><br>
+                            <br>
+                            <label class="field-name" for="tel">Tel:</label><br>
+                            <p>{{ profile.tel }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="account-block">
+                    <h6>Social media:</h6>
+
+                    <div class="d-flex inputs">
+                        <div class="inp-side">
+                            <a href="{{ profile.instagram }}">Instagram</a><br>
+                            <br>
+                            <a href="{{ profile.facebook }}">Facebook</a><br>
+                        </div>
+                        <div class="inp-side">
+                            <a href="{{ profile.twitter }}">Twitter</a><br>
+                            <br>
+                            <a href="{{ profile.wk }}">Wk</a><br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'account/js/view-prof.js' %}"></script>
+{% endblock %}

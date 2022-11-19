@@ -1,0 +1,28 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+
+{% block title %} Newsletter page {% endblock %}
+
+
+{% block content %}
+    <div class="content some-page">
+        <div class="email-connect" style="background: none; padding:50px 0px;">
+            <h5>NEWSLETTER</h5>
+            <h6 class="less-size">SEND NEWS TO ALL SUBSCRIBERS</h6>
+            <form action="" method="post" class="email-post-form">
+                {% csrf_token %}
+                <input type="text" name="subject" id="" placeholder="Subject" class="mail-inp"><br>
+                <textarea name="message" id="" cols="30" rows="10" placeholder="Type your message here..."
+                    class="mail-inp"></textarea><br>
+                <button class="send-email btn-base" type="submit">Send</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+
+
+

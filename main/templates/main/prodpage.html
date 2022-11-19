@@ -1,0 +1,258 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% load thumbnail %}
+{% load easy_thumbnails_tags %}
+
+{% block title %} Страница продукта {% endblock %}
+
+
+{% block content %} 
+    <div class="top-urls">
+        <h6>
+            Home/
+            <span class="page-name">{{ product.prod_name }}</span>
+    </div>
+    <div class="content prod-page-cont block">
+        <div class="modal-deteils modal-block product-inform">
+            <div class="slider sides">
+                {% if product.get_default.image.all.count > 0 %}
+                    <div class="slider-items-img" id="prod-imgs">
+                        {% for src in product.get_default.image.all %}
+                            <img src="{{ src.file.prod_photo.url }}" alt="" class="slide">
+                        {% endfor %}                    
+                    </div>
+                    <div class="img-dots">
+                        {% for src in product.get_default.image.all %}
+                            <button class="img-dot">
+                                <img src="{{ src.file.btn_img.url }}" alt="">
+                            </button>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <img src="{{ product.avatar.prod_photo.url }}" alt="" class="slide">
+                    <div class="img-dots">
+                        <button class="img-dot">
+                            <img src="{{ product.avatar.btn_img.url }}" alt="">
+                        </button>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="sides">
+                <form data-url="{% url 'get_var' %}" action="{% url 'add_to_cart' %}" method="POST" id="product-form" class="add-form">
+                    <input type="hidden" name="url" value="{{ request.path }}">
+                    {% csrf_token %}
+                    <p class="name-inp">{{ product.prod_name }}</p>
+                    <p class="price-inp" id="price">${{ product.get_default.price }}</p>
+                    <label for="" class="sku-inp sku-inp-prodp">SKU:</label>
+                    <input type="text" class='sku-inp read-only', id= 'pk', value="{{ product.id }}" name="product" readonly>
+                    <input type="hidden" value="{{ product.get_default.id }}" name="variant">
+                    <label for="" class="sku-inp sku-inp-prodp">QTY:</label>
+                    <input type="text" class='sku-inp read-only' , id='pk' , value="{{ product.get_default.id }}" name="product_qty" readonly><br>
+                    <br>
+                    <label class="form-label">Color</label><br><br>
+                    <select name="color" id="colors-select" class="select-atribut" required>
+                        {% for color in product.colors.all %}
+                        {% if product.get_default.color == color %}
+                        <option value="{{ color.id }}" data-color="{{ color.color }}" selected>{{ color.name }}</option>
+                        {% else %}
+                        <option value="{{ color.id }}" data-color="{{ color.color }}">{{ color.name }}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select><br><br>
+
+                    {% for atribut in product.category.atributs.all %}
+                    <label class="form-label" id="ctg-label-for-data">{{ atribut.name }}</label><br><br>
+                    <select name="atribut_{{ atribut.name }}" class="select-atribut" required>
+                        {% for option in atribut.parametrs.all %}
+                            <option value="{{ option.id }}" {% if option in product.get_default.atribut.all %} selected {% endif %}>{{ option.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <br><br>
+                    {% endfor %}
+                    <!--end::Label-->
+                    <!--begin::Select2-->
+
+                    <div class="d-flex total-and-modal" style="height: 90px;">
+                        <div>
+                            <label for="quant" class="sec-type" style="margin-top: 13px;">Quantity</label><br>
+                            {{ form.quantity }}
+                        </div>
+                    
+                        <div>
+                            <label for="quant" class="sec-type" style="margin-top: 13px;">Total price</label><br>
+                            {{ form.total }}
+                            <div class="style-span">
+                                <input type="number" class="act-inp" id='total-inp' value="{{ total }}" style='margin-right: -20px;' readonly>
+                                <span class="dollar-symb">$</span>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+
+
+                    
+                    <div class="btn-block">
+                        {% if in_cart %}
+                        <span id="add-to-cart-btns">
+                            <button class="sbm-btn btn-base white change-prod" style="padding: 0;">Combination already in Cart</button>
+                            <a href="{% url 'delete' c_id=product.get_default.id %}" class="sbm-btn btn-base white">
+                                <span class="material-symbols-outlined">
+                                    delete
+                                </span>
+                            </a>                            
+                        </span>
+                        {% else %}
+                        <span id="add-to-cart-btns">
+                            <input type="submit" class="sbm-btn btn-base white" name="_cart" value="Add to Cart">
+                        </span>
+                        {% endif %}
+                {% if liked %}  
+                            <a class="like-prod liked" href="{% url 'unlike' p_id=product.id %}">
+                                <img src="{% static 'main/img/liked.png' %}" alt="">
+                            </a>
+                        </div>
+                        <input type="submit" value="Buy Now" name="_buy" class="buy-prod btn-base">
+                    </form> 
+                {% else %}
+                            <a class="like-prod liked" href="{% url 'like' p_id=product.id %}">
+                                <img src="{% static 'main/img/like.png' %}" alt="">
+                            </a>
+                        </div>
+                        <input type="submit" value="Buy Now" name="_buy" class="buy-prod btn-base">
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="text-content modal-deteils">
+            <div class="sides side1">
+                <p class="prod-description">{{ product.deskription }}</p>
+            </div>
+            <div class="sides side2">
+                <ul class="accardion">
+                    <li class="acrd">
+                        <div class="header">
+                            <h5>PRODUCT INFO</h5>
+                            <span class="open-acrd" data-oper="-">+</span>
+                        </div>
+                        <p class="text-deck">{{ product.information }}</p>
+                    </li>
+                    <li class="acrd">
+                        <div class="header">
+                            <h5>RETURN & REFUND POLICY</h5>
+                            <span class="open-acrd" data-oper="-">+</span>
+                        </div>
+                        <p class="text-deck">
+                            I’m a Return and Refund policy. I’m a great place to let your customers know what to do in case they are dissatisfied
+                            with their purchase. Having a straightforward refund or exchange policy is a great way to build trust and reassure your
+                            customers that they can buy with confidence.
+                        </p>
+                    </li>
+                    <li class="acrd">
+                        <div class="header">
+                            <h5>SHIPPING INFO</h5>
+                            <span class="open-acrd" data-oper="-">+</span>
+                        </div>
+                        <p class="text-deck">
+                            I'm a shipping policy. I'm a great place to add more information about your shipping methods, packaging and cost.
+                            Providing straightforward information about your shipping policy is a great way to build trust and reassure your
+                            customers that they can buy from you with confidence.
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="blog-comment">
+            <h3 class="text-success">Comments</h3>
+            <hr />
+
+            {% if user.is_authenticated %}
+                <div class="add-comment">
+                    <form action="{% url 'comments' %}" method="post">
+                        {% csrf_token %}
+                        {{ comment_input.text }}
+                        {{ comment_input.product }}
+                        <input type="hidden" name="parent" value="">
+                        <div class="comm-btns">
+                            <button class="comment-it">Add</button> <button class="cansel-adding">Cansel</button>                        
+                        </div>
+                    </form>
+                </div>
+            {% endif %}
+
+            {% if comments.count %}
+                <ul class="comments">
+                    {% for comment in comments %}
+                        <li class="clearfix">
+                            <img src="{% thumbnail comment.profile.prof_img 90x90 crop %}" class="avatar" alt="">
+                            <div class="post-comments">
+                                <p class="meta">{{ comment.date.date }} <a href="{% url 'user' comment.user.id %}">{{ comment.user.username }}</a> says : {% if request.user.is_authenticated %} <i class="pull-right"><a><small>Reply</small></a></i> {% endif %} </p>
+                                <p>{{ comment.text }}</p>
+                            </div>
+                            {% if request.user.is_authenticated %}
+                                <div class="reply">
+                                    <div class="add-comment">
+                                        <form action="{% url 'comments' %}" method="post">
+                                            {% csrf_token %}
+                                            <textarea name="text" cols="40" rows="10" placeholder="Text your view" class="comment-input" maxlength="1000"
+                                                required="" id="id_text"></textarea>
+                                            {{ comment_input.product }}
+                                            <input type="hidden" name="parent" value="{{ comment.id }}">
+                                            <div class="comm-btns">
+                                                <button class="comment-it">Add</button> <button class="cansel-adding">Cansel</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            <ul class="comments">
+                                {% for asw in answers %}
+                                    {% if asw.parent == comment %}
+                                        <li class="clearfix">
+                                            <img src="{% thumbnail asw.profile.prof_img 90x90 crop %}" class="avatar" alt="">
+                                            <div class="post-comments">
+                                                <p class="meta">{{ asw.date.date }} <a href="{% url 'user' asw.user.id %}">{{ asw.user.username }}</a> answers to: <a href="">{{ asw.parent.user }}</a></p>
+                                                <p>{{ asw.text }}</p>
+                                            </div>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="empty-text">There is no comments</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="original-images-slider">
+        <button class="ext-galery">&#10006;</button>
+        <button class="big-slider-btn" id="prev">&laquo;</button>
+        {% for src in product.get_default.image.all %}
+            <img src="{{ src.file.url }}" alt="" class="big-slide">
+        {% endfor %}
+        <button class="big-slider-btn" id="next"> &raquo; </button>
+    </div>
+
+
+<script src="{% static 'main/js/prodpage.js' %}"></script>
+<script src="{% static 'main/js/accardion.js' %}"></script>
+{% endblock %}
+
+
+<!--                <ul class="comments">
+                        <li class="clearfix">
+                            <img src="https://bootdey.com/img/Content/user_3.jpg" class="avatar" alt="">
+                            <div class="post-comments">
+                                <p class="meta">Dec 20, 2014 <a href="#">JohnDoe</a> says : <i class="pull-right"><a
+                                            href="#"><small>Reply</small></a></i></p>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                    Etiam a sapien odio, sit amet
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+-->

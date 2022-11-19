@@ -1,0 +1,544 @@
+@media screen and (max-width:1140px) {
+    .prod-cotalog {
+        width: 90%;
+    }
+    .product-card {
+        width: 32%;
+    }
+    .desk-text {
+        width: 50%;
+    }
+    .footer-contet {
+        width: 95%;
+    }
+
+    .menu-side {
+        width: 70%;
+    }
+
+    .prod-name {
+        font-size: 20px;
+    }
+
+    .prod-price {
+        font-size: 15px;
+    }
+
+    .show-all-btn {
+        width: 20%;
+        height: 40px;
+    }
+
+    .about-content > div {
+        width: 100%;
+        height: 50%;
+    }
+
+    .about-content {
+        height: 100%;
+    }
+}
+
+@media screen and (max-width:1050px) {
+    .modal-deteils {
+        display: flex;
+        opacity: 1;
+        overflow: auto;
+        width: 80%;
+        height: 90%;
+        overflow-x: hidden;
+    }
+
+    .sides > form {
+        padding-left: 0px;
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .name-inp {
+        font-size: 30px;
+    }
+    
+    .sku-inp {
+        font-size: 20px;
+    }
+
+    .price-inp {
+        font-size: 24px;
+    }
+
+    .add-form label {
+        font-size: 20px;
+    }
+
+    .sides a {
+        font-size: 20px;
+    }
+
+    .exit-btn {
+        font-size: 90px;
+        top: -10px;
+    }
+
+    .sides {
+        position: relative;
+        width: 80%;
+        box-sizing: border-box;
+        height: 500px;
+        margin: 0 auto;
+    }
+
+    .slide {
+        position: absolute;
+        width: 90%;
+        height: 2;
+        display: block;
+        /* margin: 0 auto; */
+        padding-left: 30px;
+        object-fit: contain;
+        opacity: 0;
+        transition: 1.6s;
+    }
+
+    .dot {
+        border-radius: 50%;
+        padding: 0;
+        width: 15px;
+        display: block;
+        height: 15px;
+        margin-left: 10px;
+        background-color: #a3a3a3;
+        z-index: 5;
+        border: none;
+        transition: 1.6s;
+        cursor: pointer;
+    }
+
+
+}
+
+@media screen and (max-width:950px) {
+    .prod-cotalog {
+        width: 100%;
+    }
+
+    .login-content {
+        width: 70%;
+    }
+
+    .product-card {
+        width: 47%;
+        height: 500px;
+    }
+
+    .prod-img {
+        height: 300px;
+    }
+
+    .prod-price {
+        font-size: 18px;
+        margin-bottom: 6px;
+    }
+
+    .desk-text {
+        width: 80%;
+    }
+
+    .search-block {
+        width: 176px;
+    }
+
+    .prod-name {
+        font-size: 25px;
+    }
+
+    .show-all-btn {
+        width: 25%;
+    }
+
+    .add-cart {
+        height: 46px;
+        padding: 10px;
+    }
+
+    .block h4 {
+        font-size: 30px;
+    }
+
+    .footer-side {
+        width: 100%;
+    }
+
+    .footer {
+        height: auto;
+    }
+
+    .footer-contet {
+        width: 60%;
+    }
+    
+    .links li {
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width:850px) {
+    .Cart-txt {
+        display: none;
+    }
+    .material-symbols-outlined.cart-img {
+        display: initial;
+    }
+
+    .search-block {
+        width: 120px;
+    }
+
+    .menu-side {
+        width: 65%;
+    }
+}
+
+@media screen and (max-width:769px) {
+    .contact-content>div {
+        width: 90%;
+        margin: 0 auto;
+        padding-bottom: 30px;
+    }
+
+    .contact-content {
+        height: auto;
+    }
+
+    .text-content.modal-deteils {
+        flex-wrap: wrap;
+    }
+
+    .text-content.modal-deteils > .sides {
+        width: 100%;
+        height: auto;
+    }
+
+}
+
+@media screen and (max-width:700px) {
+    .product-card {
+        width: 100%;
+        height: 600px;
+    }
+
+    .google-login {
+        font-size: 13px;
+    }
+
+    .sides {
+        width: 100%;
+    }
+
+    .del-fromcart-btn {
+        opacity: 1;
+    }
+
+    .desk-text > h1 {
+        font-size: 60px;
+    }
+
+    .cotalog-btn {
+        width: 130px;
+        height: 50px;
+        padding: 14px;
+    }
+
+    .desk-text > h6 {
+        font-size: 25px;
+    }
+
+    a.del-fromcart-btn {
+        opacity: 1;
+        font-size: 50px;
+    }
+
+    .prod-img {
+        height: 400px;
+    }
+
+    .cart-block {
+        right: -100%;
+        width: 100%;
+    }
+
+    .prod-mini-card {
+        height: 150px;
+    }
+
+    .inf-in-cart {
+        width: 50%;
+    }
+
+    a.login-block {
+        display: none;
+    }
+
+    .prod-name-cart {
+        font-size: 30px;
+        font-weight: 600;
+    }
+
+    .in-cart-price {
+        font-size: 25px;
+    }
+
+    .prod-mini-card > a:not(.del-fromcart-btn) {
+        width: 200px;
+    }
+
+    .link-side-block {
+        width: 100%;
+        right: -100%;
+        background-color: white;
+    }
+
+    .ext-wh {
+        display: none;
+    }
+
+    .bl-ext {
+        display: block;
+    }
+
+    .links-block a {
+        color: black;
+        font-size: 35px;
+    }
+
+    .exit-links-block {
+        width: 60px;
+        height: 60px;
+    }
+
+    .side-link.user-block {
+        display: block;
+    }
+
+    .menu-side {
+        width: 75%;
+    }
+}
+
+@media screen and (max-width: 660px) {
+    .email-past {
+        width: 100%;
+    }
+    
+    .qw.change-prod {
+        width: 80%;
+    }
+
+    .email-sbm {
+        width: 100%;
+        margin: 0;
+        margin-top: 20px;
+    }
+
+    form.add-prod-form.autin-form.filter-form {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 570px) {
+    .links a {
+        font-size: 18px;
+    }
+
+    .total-and-modal>div {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 501px) {
+    .search-block {
+        display: none;
+    }
+    
+    .prod-page-cont {
+        width: 75%;
+    }
+
+    label.sec-type {
+        font-size: 15px;
+    }
+
+    #search-down {
+        display: contents;
+    }
+
+    .inf-in-cart {
+        width: 40%;
+    }
+
+    .menu-side {
+        width: 70%;
+    }
+    
+    .prod-mini-card>a:not(.del-fromcart-btn) {
+        width: 150px;
+    }
+
+    .prod-name-cart {
+        font-size: 25px;
+    }
+
+    .in-cart-price {
+        font-size: 17px;
+    }
+
+    .cotalog-menu {
+        margin-bottom: 100px;
+    }
+}
+
+@media screen and (max-width: 426px) {
+    .add-prod-form.autin-form.filter-form {
+        width: 80%;
+    }
+
+    .login-content {
+        width: 90%;
+    }
+
+    div.filter-price {
+        width: 50%;
+    }
+
+    .modal-deteils.product-inform {
+        padding: 0;
+    }
+
+    .prod-page-cont {
+        width: 90%;
+    }
+
+    .name-inp {
+        font-size: 25px;
+    }
+
+    .filter-form input[type='number'] {
+        padding: 10px 15px;
+        width: 90%;
+    }
+
+    .product-card {
+        height: 430px;
+    }
+
+    .prod-img {
+        height: 220px;
+        width: 60%;
+        margin: 0 auto;
+    }
+
+    .adress-list {
+        width: 80%;
+    }
+
+    .modal-deteils {
+        padding: 20px;
+    }
+
+    #total-inp {
+        width: 100%;
+    }
+}
+
+
+@media screen and (max-width: 400px) {
+    .links a {
+        font-size: 15px;
+    }
+
+    .desk-text>h1 {
+        font-size: 50px;
+    }
+
+    .blog-comment img.avatar {
+        width: 55px;
+        height: 55px;
+    }
+
+    .blog-comment .post-comments {
+        margin-left: 65px;
+    }
+
+    .category {
+        width: 100%;
+        display: flex;
+        flex-wrap: inherit;
+        justify-content: center;
+    }
+
+    .cotalog-menu {
+        margin-bottom: 200px;
+    }
+
+    
+    .category > p {
+        margin-right: 0px !important;
+    }
+
+    .desk-text>h6 {
+        font-size: 20px;
+    }
+}
+
+
+@media screen and (max-width: 376px) {
+    .cart-content {
+        width: 90%;
+    }
+    .cart.side-item {
+        margin-right: 20px;
+        margin-left: 0;
+    }
+
+    .desk-text > h1 {
+        font-size: 40px;
+    }
+    
+    #search-down {
+        margin-right: 20px;
+        display: block;
+    }
+    
+    .sw-container > input {
+        width: 30%;
+    }
+
+    .inf-in-cart > p {
+        font-size: 15px;
+    }
+
+    .prod-mini-card>a:not(.del-fromcart-btn) {
+        width: 120px;
+    }
+
+    .filter-form input[type='number'] {
+        width: 100%;
+    }
+
+    div.filter-price {
+        margin-right: 10px;
+    }
+
+    .contact-content > div {
+        width: 95%;
+    }
+
+    label.sec-type {
+        font-size: 15px;
+    }
+
+    input.change-prod {
+        font-size: 13px;
+    }
+}
+

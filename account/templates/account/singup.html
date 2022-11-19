@@ -1,0 +1,29 @@
+{% extends 'account/form-base.html' %}
+{% load static %}
+
+
+{% block form_title %} Registration {% endblock %}
+
+
+{% block form_content %}
+    <form method="post" action="" style="height: 900px;" class="autin-form reg" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="name">Username</label><br>
+        {{ form.username }}<br>
+        <label for="name">First Name</label><br>
+        {{ form.first_name }}<br>
+        <label for="name">Surename</label><br>
+        {{ form.last_name }}<br>
+        <label for="pass">Password</label>
+        {{ form.password1 }}<br>
+        <label for="pass">Confirm password</label>
+        {{ form.password2 }}<br>
+        <label for="name">Email</label><br>
+        {{ form.email }}<br>
+        {{ form.errors }}
+        <button class="btn-base atfc-btn">Submit</button>
+    </form>
+
+
+<script src="{% static 'account/js/form_check.js' %}"></script>
+{% endblock %}

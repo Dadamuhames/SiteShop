@@ -1,0 +1,153 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% load thumbnail %}
+
+{% block title %} Orders Manage {% endblock %}
+
+{% block css %} <link rel="stylesheet" href="{% static 'palpay/css/orders-page.css' %}"> {% endblock %}
+
+{% block content %}
+    <div class="content orders-content">
+        <div class="orders-inform-block contr-block">
+            <ul>
+                <li class="filter-links"><b>All Orders:</b> {{ orders.count }}</li>
+                <li class="filter-links"><b>Accepted:</b> {{ accepted.count }}</li>
+                <li class="filter-links"><b>Performed:</b> {{ performed.count }}</li>
+                <li class="filter-links"><b>Delivered:</b> {{ delivered.count }}</li>
+            </ul>
+        </div>
+        <div class="orders-list block">
+            <div class="orders-page active">
+                <h4>All Orders</h4>
+                <div class="orders-container">
+                {% if orders.count > 0 %}
+                    {% for order in orders %}
+                        <div class="order-card">
+                            <a href="{% url 'view_orders' order.id %}">
+                                <img src="{{ order.order_img.cart.url }}" alt="" class="order-img">
+                            </a>
+                            <div class="order-inf">
+                                <p class="order-id"><b>Order:</b> №{{ order.id }}</p>
+                                <p class="prod-count"><b>Products:</b> {{ order.count }}</p>
+                                <p class="order-price"><b>Total:</b> {{ order.price }}$ </p>
+                                <p class="order-date"><b>Order date:</b> {{ order.date }}</p>
+                            </div>
+                            <div class="status-change-block">
+                                {% if order.status == 'Accepted' %}
+                                    <button class="status-btn btn-base accepted">{{ order.status }}</button>
+                                {% elif order.status == 'Performed' %}
+                                    <button class="status-btn btn-base performed">{{ order.status }}</button>
+                                {% else %}
+                                    <button class="status-btn btn-base delivered">{{ order.status }}</button>
+                                {% endif %}
+                                {% if request.user.is_superuser and not my_order %}
+                                    <form action="{% url 'chang_st' order.id %}" method="post" class="hidden-form">
+                                        {% csrf_token %}
+                                        {{ form.status }}
+                                        <button class="change-status btn-base" style="
+                                        background: #000;
+                                        color: #fff;
+                                        margin: 0;">Save</button>
+                                    </form>  
+                                {% endif %}                  
+                            </div>
+                            
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p  class="empty-text">There is no orders.</p>
+                {% endif %}
+                </div>
+            </div>
+            <div class="orders-page">
+                <h4>Accepted Orders</h4>
+                <div class="orders-container">
+                    {% if accepted.count > 0 %}
+                        {% for order in accepted %}
+                        <div class="order-card">
+                            <a href="{% url 'view_orders' order.id %}">
+                                <img src="{{ order.order_img.cart.url }}" alt="" class="order-img">
+                            </a>
+                            <div class="order-inf">
+                                <p class="order-id"><b>Order:</b> №{{ order.id }}</p>
+                                <p class="prod-count"><b>Products:</b> {{ order.count }}</p>
+                                <p class="order-price"><b>Total:</b> {{ order.price }}$ </p>
+                                <p class="order-date"><b>Order date:</b> {{ order.date }}</p>
+                            </div>
+                            {% if order.status == 'Accepted' %}
+                            <button class="status-btn btn-base accepted">{{ order.status }}</button>
+                            {% elif order.status == 'Performed' %}
+                            <button class="status-btn btn-base performed">{{ order.status }}</button>
+                            {% else %}
+                            <button class="status-btn btn-base delivered">{{ order.status }}</button>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="empty-text">Tere is no accepted orders</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="orders-page">
+                <h4>Performed Orders</h4>
+                <div class="orders-container">
+                    {% if performed.count > 0 %}
+                        {% for order in performed %}
+                        <div class="order-card">
+                            <a href="{% url 'view_orders' order.id %}">
+                                <img src="{{ order.order_img.cart.url }}" alt="" class="order-img">
+                            </a>
+                            <div class="order-inf">
+                                <p class="order-id"><b>Order:</b> №{{ order.id }}</p>
+                                <p class="prod-count"><b>Products:</b> {{ order.count }}</p>
+                                <p class="order-price"><b>Total:</b> {{ order.price }}$ </p>
+                                <p class="order-date"><b>Order date:</b> {{ order.date }}</p>
+                            </div>
+                            {% if order.status == 'Accepted' %}
+                            <button class="status-btn btn-base accepted">{{ order.status }}</button>
+                            {% elif order.status == 'Performed' %}
+                            <button class="status-btn btn-base performed">{{ order.status }}</button>
+                            {% else %}
+                            <button class="status-btn btn-base delivered">{{ order.status }}</button>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="empty-text">There is no performed orders.</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="orders-page">
+                <h4>Delivered Orders</h4>
+                <div class="orders-container">
+                    {% if delivered.count > 0 %}
+                        {% for order in delivered %}
+                            <div class="order-card">
+                                <a href="{% url 'view_orders' order.id %}">
+                                    <img src="{{ order.order_img.cart.url }}" alt="" class="order-img">
+                                </a>
+                                <div class="order-inf">
+                                    <p class="order-id"><b>Order:</b> №{{ order.id }}</p>
+                                    <p class="prod-count"><b>Products:</b> {{ order.count }}</p>
+                                    <p class="order-price"><b>Total:</b> {{ order.price }}$ </p>
+                                    <p class="order-date"><b>Order date:</b> {{ order.date }}</p>
+                                </div>
+                                {% if order.status == 'Accepted' %}
+                                    <button class="status-btn btn-base accepted">{{ order.status }}</button>
+                                {% elif order.status == 'Performed' %}
+                                    <button class="status-btn btn-base performed">{{ order.status }}</button>
+                                {% else %}
+                                    <button class="status-btn btn-base delivered">{{ order.status }}</button>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="empty-text">There is no delivered orders.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <script src="{% static 'palpay/js/orders.js' %}"></script>
+    </div>
+{% endblock %}

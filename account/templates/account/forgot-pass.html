@@ -1,0 +1,17 @@
+{% extends 'account/form-base.html' %}
+
+{% block title %} Reset password {% endblock %}
+
+
+{% block form_title %} Reset password {% endblock %}
+
+
+{% block form_content %}
+    <form method="post" class="autin-form" enctype="multipart/form-data" style="height: 400px;">
+        {% csrf_token %}
+        <label for="" style="display: block; margin-bottom:10px;"><b>Enter the email, that you used when register, to recover your password.</b></label><br>
+        <input type="email" class="{{ class }}" name="email" id="email_pass" placeholder="{{ error }}">
+        <button class="btn-base atfc-btn">Submit</button>
+        
+    </form>
+{% endblock %}

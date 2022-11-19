@@ -1,0 +1,26 @@
+{% extends 'main/cotalog-base.html' %}
+{% load static %}
+{% load thumbnail %}
+
+{% block new_arrivals %}
+    <hr class="black-hr">
+    <div class="block top-margin">
+        <h4>NEW ARRIVALS</h4>
+        <div class="prod-cotalog">
+            {% for prod in new %}
+                <div class="product-card">
+                    <a class="images-block" href="{% url 'products-page' prod.id %}">
+                        {% for src in prod.get_default.image.all|slice:'2' %}
+                            <img src="{{ src.file.product_img.url }}" alt="" class="prod-img">
+                        {% endfor %}
+                    </a>
+                    <span class="drop-up-span open-modal" data-url="{% url 'modal-data' prod.id %}">Quick View</span>
+                    <p class="prod-name" data-sku="0001">{{ prod.prod_name }}</p>
+                    <p class="prod-price">${{ prod.get_default.price }}</p>
+                    <button class="add-cart btn-base open-modal" data-url="{% url 'modal-data' prod.id %}">Add to
+                        Cart</button>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

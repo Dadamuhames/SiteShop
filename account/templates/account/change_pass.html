@@ -1,0 +1,29 @@
+{% extends 'account/form-base.html' %}
+
+
+{% block title %} Change Password {% endblock %}
+
+
+{% block form_title %} Change Password {% endblock %}
+
+
+{% block form_content %}
+<div class="login-content" style="height: 660px;">
+    <form method="post" action="" class="autin-form" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="name">Password</label><br>
+        {{ form.old_password }}<br>
+
+        <label for="pass">New Password</label><br>
+        {{ form.new_password1 }}<br>
+
+        <label for="pass">Confirm new password</label><br>
+        {{ form.new_password2 }}<br>
+
+        {{ form.errors }}
+        <button class="btn-base atfc-btn">Submit</button>
+    </form>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,158 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %} Query results {% endblock %}
+
+{% block css %} 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+{% endblock %}
+
+{% block content %}
+
+    <script>
+        $('.search').val('{{ search_qw }}')
+    </script>
+
+
+    <div class="content" style="padding-bottom: 60px">
+        <div class="block products-cotalog-block" style="top: 117px; margin-bottom: 20px;">
+            {% if products.count > 0 and search_qw != '' %}
+                <h4 class="lim-ed">RESULTS ON REQUEST "{{ search_qw }}": </h4>
+                <div class="prod-cotalog">
+                    {% for prod in products %}
+                        <div class="product-card">
+                            <a class="images-block" href="{% url 'products-page' prod.id %}">
+                                {% for src in prod.get_default.image.all|slice:'2' %}
+                                    <img src="{{ src.file.product_img.url }}" alt="" class="prod-img">
+                                {% endfor %}
+                            </a>
+                            <span class="drop-up-span open-modal" data-url="{% url 'modal-data' prod.id %}">Quick View</span>
+                            <p class="prod-name" data-sku="0001">{{ prod.prod_name }}</p>
+                            <p class="prod-price">${{ prod.get_default.price }}</p>
+                            <button class="add-cart btn-base open-modal" data-url="{% url 'modal-data' prod.id %}">Add to Cart</button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="no-result-block">
+                    <h4 class="lim-ed">NO RESULTS ON REQUEST "{{ search_qw }}"! RETURN TO <a href="{% url 'home-page' %}">MAIN PAGE</a></h4>
+                    <img src="{% static 'main/img/no-result.jpg' %}" alt="" class="no-result">
+                </div>
+                
+            {% endif %}
+        </div>
+
+
+        {% if page_obj.paginator.num_pages > 1 %}
+        <nav aria-label="Page navigation example" class="pgn-links">
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ url }}&page={{ page_obj.previous_page_number }}"
+                        aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                {% endif %}
+                {% for i in page_obj.paginator.page_range %}
+                {% if page_obj.number == i %}
+                <li class="page-item active" aria-current="page"><a class="page-link"
+                        href="{{ url }}&page={{ i }}">{{ i }}</a></li>
+                {% else %}
+                <li class="page-item"><a class="page-link" href="{{ url }}&page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+                {% endfor %}
+        
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ url }}&page={{ page_obj.next_page_number }}"
+                        aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+    </div>
+    <div class="hide-block modal-w modal-block ext-modal main-black">
+        <div class="modal-deteils modal-w active" id="modal-1">
+            <button class="exit-btn ext-modal">×</button>
+            <div class="slider sides">
+                <div class="slider-items-img" id="prod-imgs"></div>
+                <div class="dots"></div>
+            </div>
+            <div class="sides form-wrapper">
+                <form data-url="{% url 'get_var' %}" action="{% url 'add_to_cart' %}" id="product-form" method="POST"
+                    class="add-form">
+                    {% csrf_token %}
+                    <p class="name-inp"></p>
+                    <input type="hidden" name="variant">
+                    <input type="hidden" name="url" value="{{ request.get_full_path }}">
+                    <p class="price-inp" id="price"></p>
+                    <label for="" class="sku-inp sku-inp-prodp">SKU:</label>
+                    <input type="text" class='sku-inp read-only' , id='pk' , name="product" readonly><br>
+    
+                    <label class="form-label">Color</label><br><br>
+                    <select name="color" id="colors-select" class="select-atribut" required></select>
+                    <span class="atributs-wrapper"></span>
+    
+                    <div class="d-flex total-and-modal" style="height: 90px;">
+                        <div>
+                            <label for="quant" class="sec-type" style="margin-top: 13px;">Quantity</label><br>
+                            <input type="number" name="quantity" class="act-inp" min="1" value="1" id="nbm-inp" required="">
+                        </div>
+    
+                        <div>
+                            <label for="quant" class="sec-type" style="margin-top: 13px;">Total price</label><br>
+    
+                            <div class="style-span">
+                                <input type="number" class="act-inp" id='total-inp' style='margin-right: -20px;' readonly>
+                                <span class="dollar-symb">$</span>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="btn-block">
+                        <span class="none" id="in_cart">
+                            <input name="_cart" type="submit" style="color: #fff;" class="sbm-btn btn-base qw change-prod"
+                                value="Save Changes">
+                            <button data-delurl="" data-utl="{% url 'delete' 1 %}" data-id=""
+                                class="sbm-btn btn-base white del-btn">
+                                <span class="material-symbols-outlined">
+                                    delete
+                                </span>
+                            </button>
+                        </span>
+                        <span class="none" id="not_in_cart">
+                            <input name="_cart" type="submit" class="sbm-btn btn-base" style="color: #fff;"
+                                value="Add to Cart">
+                        </span>
+    
+                    </div>
+                    <a href="" class="more-detail-a">View More Details</a>
+    
+                    <br>
+                </form>
+    
+            </div>
+        </div>
+    </div>
+
+<script src="{% static 'main/js/get_modal.js' %}"></script>
+{% endblock %}
+
+

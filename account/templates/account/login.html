@@ -1,0 +1,35 @@
+{% extends 'account/form-base.html' %}
+{% load static %}
+
+
+{% block form_title %} Log In {% endblock %}
+
+
+{% block form_content %}
+    <div class="login-content" style="height: 450px;margin-bottom: 130px;">
+        <form method="post"  action="" class="autin-form" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="name">Login</label><br>
+            {{ form.username }}<br>
+            <label for="pass">Password</label>
+            {{ form.password }}<br>
+            <p class="errors">{{ error }}</p> 
+            <button class="btn-base atfc-btn">Submit</button>
+        </form>
+        <div class="hlp-block">
+            <a href="{% url 'forgot_pass_page' %}" class="help-lnk">Forgot password?</a>
+            <a href="{% url 'registration-page' %}" class="help-lnk">Sing Up</a>  
+        </div>   
+        <div class="social-auth-block">
+            <a href="{% url 'social:begin' 'google-oauth2' %}" class="google-login">
+                <img src="{% static 'account/img/google.png' %}" alt="">
+                <p>Login with google</p>
+            </a>
+        
+            <script async src="https://telegram.org/js/telegram-widget.js?21" data-telegram-login="MySh0psbot" data-size="large"
+                data-auth-url="/accounts/complete/telegram/" data-request-access="write"></script>
+        </div>
+    </div>
+
+
+{% endblock %}

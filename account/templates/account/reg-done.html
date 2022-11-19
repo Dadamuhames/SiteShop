@@ -1,0 +1,10 @@
+{% extends 'account/form-base.html' %}
+
+
+
+{% block form_title %}
+<p class="logout-qw">
+    You have successfully registered <br>
+    <a href="{% url 'login' %}">Log In</a> / <a href="{% url 'home-page' %}">Home</a>
+</p>
+{% endblock %}

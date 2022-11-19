@@ -1,0 +1,80 @@
+{% extends 'main/homepage.html' %}
+{% load static %}
+
+{% block form %}
+<div class="hide-block modal-w modal-block main-black" style="display: flex; opacity: 1;">
+    <div class="modal-deteils modal-w modal-block" id="modal-1" style="display: flex; opacity: 1;">
+        <a class="exit-btn" href="{% url 'home-page' %}" id="ext-btn">×</a>
+        <div class="slider sides">
+            <div class="slider-items-img">
+                {% for src in img %}
+                    <img src="{{ src.file.url }}" alt="" class="slide">
+                {% endfor %}
+            </div>
+            <div class="dots">
+                {% for src in img %}
+                    <span class="dot"></span>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="sides">
+            <form action="{% url 'add_to_cart' %}" method="POST" class="add-form">
+                {% csrf_token %}
+                {{ form.name }}<br>
+                <label for="" class="sku-inp sku-inp-prodp">SKU:</label>
+                {{ form.prim_key }}<br>
+                {{ form.price }}<br>
+            
+                <label for="size" class="sec-type" style="margin-top: 13px;">Size</label><br>
+                {{ form.size }}<br>
+                
+                <div class="d-flex" style="height: 90px;">
+                    <div style="width: 30%;">
+                        <label for="quant" class="sec-type" style="margin-top: 13px;">Quantity</label><br>
+                        {{ form.quantity }}
+                    </div>
+                
+                    <div style="width: 30%;">
+                        <label for="quant" class="sec-type" style="margin-top: 13px;">Total price</label><br>
+                        {{ form.total }} <span style="
+                                                display: block;
+                                                position: relative;
+                                                top: -40px;
+                                                left: 110px;
+                                                font-family: sans-serif;
+                                            ">$</span>
+                        <br>
+                    </div>
+                </div>
+                <div class="btn-block">
+                    {% if in_cart %}
+                        <input name="_cart" type="submit" style="color: #fff;" class="sbm-btn btn-base qw change-prod" value="Save Changes">
+                        <button class="btn-base white small-sbm">
+                            <span class="material-symbols-outlined">
+                                shopping_cart
+                            </span>
+                        </button>
+                        <a href="{% url 'delete' c_id=product.id %}" class="sbm-btn btn-base white">
+                            <span class="material-symbols-outlined">
+                                delete
+                            </span>
+                        </a>
+                    {% else %}
+                        <!--<input name="_cart" class="btn-base white small-sbm material-symbols-outlined" value="add_shopping_cart">-->
+                        <input name="_cart" type="submit" class="sbm-btn btn-base" style="color: #fff;" value="Add to Cart">
+                    {% endif %}
+                    <a href="{% url 'products-page' product.id %}" class="more-detail-a">View More Details</a>
+                </div>
+
+            
+                <br>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'main/js/quick.js' %}"></script>
+{% endblock %}
+
+

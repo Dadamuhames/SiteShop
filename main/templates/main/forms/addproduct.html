@@ -1,0 +1,37 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+
+{% block title %} Add product {% endblock %}
+
+
+{% block content %}
+<div class="content some-page">
+    <div class="add-content d-flex">
+        <div class="block form-content sides">
+            <h4>Add Product</h4>
+            <form action="" method="post" enctype="multipart/form-data" class="add-prod-form autin-form">
+                {% csrf_token %}
+                {{ form.prod_name }}<br>
+                {{ form.price }}<br>
+                {{ form.category }}<br>
+                <select name="post_category" required="" id="id_post_category"></select><br>
+                {{ form.files }}<br>
+                {{ form.deskription }}<br>
+                {{ form.information }}<br>
+                <button class="add-product btn-base atfc-btn" type="submit">New product</button>
+            </form>
+        </div>
+        <div class="sides slider-side">
+            <div class="slider sides" id="prod-images">
+                <div class="img-dots form-dots"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'main/js/prodpage.js' %}"></script>
+<script src="{% static 'main/js/add.js' %}"></script>
+{% endblock %}
+
+

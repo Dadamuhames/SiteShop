@@ -1,0 +1,5 @@
+@media screen and (max-width:821px) {
+    div.orders-inform-block.contr-block {
+        display: none;
+    }
+}

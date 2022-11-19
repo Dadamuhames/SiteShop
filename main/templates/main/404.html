@@ -1,0 +1,32 @@
+{% extends 'main/base.html' %}
+
+
+{% block title %} 404 {% endblock %}
+
+{% block css %}
+<style>
+    .not-found-block {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+
+.not-found-block h1, h3 {
+    font-family: sans-serif;
+    color: #757575;
+    width: 100%;
+    margin: 0;
+    text-align: center;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="not-found-block">
+    <h1>404</h1>
+    <h3>Page Not Found</h3>
+</div>
+{% endblock %}

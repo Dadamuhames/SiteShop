@@ -1,0 +1,93 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+
+{% block title %} Make Order {% endblock %}
+{% block css %} 
+    <link rel="stylesheet" href="{% static 'account/css/profile.css' %}"> 
+    <link rel="stylesheet" href="{% static 'palpay/css/palpay.css' %}">   
+{% endblock %}
+
+{% block content %}
+<div class="content some-page">
+    <div class="add-content d-flex">
+        <div class="block form-content sides">
+            <h4>Fill the blanks to make order</h4>
+                <form action="{% url 'make_order' %}" method="post" enctype="multipart/form-data" class="add-prod-form autin-form">
+                    {% csrf_token %}
+                    {{ form.name }}<br>
+                    {{ form.price }}<br>
+                    {{ form.city }}<br>
+                    {{ form.adres }}<br>
+                    {{ form.email }}<br>
+                    {{ form.your_number }}<br>
+                    <input type="hidden" name="buying_type" value="{{ buy_type }}">
+                    <input type="hidden" name="next_url" value="{{ request.path }}">
+                    <div class="payment-typs">
+                        <label for="payment">{{ form.cash }} Pay in cash</label>
+                        <div class="disabled" style="margin: 0;">
+                            <label for="payment" class="disabled-block">
+                                {{ form.payme }} 
+                                <img src="{% static 'palpay/img/payme.png' %}" class="payme-logo" alt="">
+                            </label>                           
+                        </div>
+                    
+                    </div><br>
+                    <ul class="errorlist">
+                        {% for key, val in errors.items %}
+                            <li>{{ key }}
+                                {% for item in val %}
+                                    <ul class="errorlist">
+                                        <li>{{ item }}</li>
+                                    </ul>
+                                {% endfor %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <div class="disabled">
+                        <button class="add-product btn-base atfc-btn buy-btn disabled" type="submit">Order</button>
+                    </div>
+                </form>
+        </div>
+        <div class="sides slider-side">
+            <div class="cart-content">
+                <ul class="product-list buy-page">
+                    {% for items in cart %}
+                        <li class="prod-mini-card">
+                            <a href="{% url 'cart-view' items.variant %}">
+                                <img src="{{ items.img }}" alt="" class="cart-prod-img">
+                            </a>
+                            <form action="{% url 'delete' c_id=items.variant %}" data-id="{{ items.variant }}" class="delete-form">
+                                {% csrf_token %}
+                                <button type="submit" class="del-fromcart-btn">×</button>
+                            </form>
+                            <div class="inf-in-cart">
+                                <p class="prod-name-cart" data-sku="0001" style="font-size: 18px;">{{ items.name }}</p>
+                                <p class="in-cart-price" style="font-size: 16px;">${{ items.price }}</p>
+                                <form action="{% url 'change_nbm' %}" class="sw-container">
+                                    {% csrf_token %}
+                                    <input type="submit" name="_down" class="sw-count btn-base" data-id="{{ items.variant }}" value="-" readonly>
+                                    <input type="hidden" name="active" value="{{ items.active }}">
+                                    <input type="number" name="" id="" class="nbminp" min="1" max='99' data-id="{{ items.variant }}"
+                                        value="{{ items.quant }}" readonly>
+                                    <input type="submit" name="_up" class="sw-count btn-base" data-id="{{ items.variant }}" value="+" readonly>
+                                </form>
+
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+                {% if buy_type == 'Single' %}
+                <p class="total-price"> <b>Subtotal:</b> $<span class="tot-p">{{ total }}</span></p>
+                {% else %}
+                <p class="total-price"> <b>Subtotal:</b>  $<span class="tot-p plur">{{ total }}</span></p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'palpay/js/check.js' %}"></script>
+</div>
+
+
+{% endblock %}

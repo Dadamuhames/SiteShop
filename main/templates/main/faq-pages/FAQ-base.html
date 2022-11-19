@@ -1,0 +1,28 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block css %} 
+    <link rel="stylesheet" href="{% static 'main/css/faq.css' %}"> 
+    {% block fon_css %} {% endblock %}    
+{% endblock %}
+
+
+{% block content %}
+    <div class="content">
+        <div class="faq-container">
+            <div class="block faq-baner">
+                {% block page_header %} {% endblock %}
+            </div>
+            <div class="faq-content">
+                {% block last_header %}{% endblock %}
+                <div class="faq-items">
+                    {% block faq_content %} 
+                    {% endblock %}
+                </div>
+            </div>            
+        </div>
+    </div>
+
+    <script src="{% static 'main/js/jquery-3.5.1.min.js' %}"></script>
+    <script src="{% static 'main/js/scroll.js' %}"></script>
+{% endblock %}

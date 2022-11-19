@@ -1,0 +1,64 @@
+.inf-in-cart .sw-count {
+    margin-top: 0;
+    height: 25px;
+    width: 25px;
+}
+
+.inf-in-cart .sw-container>input {
+    width: 30px;
+    height: 25px;
+}
+
+
+.disabled {
+    cursor: not-allowed;
+    width: 130px;
+    margin: 0 auto;
+}
+
+.disabled > button.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.ph-nbm.error {
+    border-bottom:2px solid red;
+}
+
+
+.product-list.buy-page > .prod-mini-card {
+    height: 100px;
+    width: 80%;
+    margin: 0 auto;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.product-list.buy-page > .prod-mini-card > a {
+    width: 100px;
+}
+
+.payme-logo {
+    width: 165px;
+    height: 80px;
+}
+
+label[for='payment'] {
+    display: flex;
+    width: 160px;
+    align-items: center;
+    font-family: Verdana;
+}
+
+.payment-typs {
+    display: flex;
+}
+
+.disabled-block {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+#id_payme {
+    cursor: not-allowed;
+}

@@ -1,0 +1,144 @@
+{% load static %}
+{% load thumbnail %}
+{% load easy_thumbnails_tags %}
+
+<div class="top-bar">
+    <p class="black-line">FREE SHIPPING WORLDWIDE</p>
+    <div class="content">
+        <div class="main-menu">
+            <a class="logo" href="{% url 'home-page' %}">
+                <img src="{% static 'main/img/logo.png' %}" alt="">
+            </a>
+            <div class="menu-side">
+                <div class="search-block side-item">
+                    <form action="{% url 'search' %}" method="get" style="height: 33px;">
+                        <input type="search" class="search" name="q" placeholder="Search...">
+                        <button class="search-btn">
+                            <img src="{% static 'main/img/483356.png' %}" alt="">
+                        </button>                        
+                    </form>
+                </div>
+                <span class="material-symbols-outlined" id="search-down">
+                    search
+                </span>
+                <button class="cart side-item" id="cart-btn">
+                    <span class="Cart-txt">Cart</span>
+                    <span class="material-symbols-outlined cart-img">
+                        shopping_cart
+                    </span> 
+                    <span class="len">{{ len }}</span>
+                </button>
+                    {% if user.is_authenticated %}
+                        <a class="login-block side-item" href="{% url 'profile' %}">
+                            <img src="{% thumbnail user.profile.prof_img 90x90 crop %}" alt="">
+                            <p>{{ user.first_name }}  <br> {{ user.last_name }}</p>
+                        </a>
+                    {% else %}
+                        <a class="login-block side-item" href="{% url 'login' %}">
+                            <img src="{% static 'main/img/user.png' %}" alt="">
+                            <p>Log In</p>
+                        </a>
+                    {% endif %}
+                <button class="more-links side-item" id="open-links-block">
+                    <img src="{% static 'main/img/menu.png' %}" alt="">
+                </button>
+            </div>        
+        </div>
+    </div>
+    <div class="big serach-block">
+        <form action="{% url 'search' %}" method="get" class="big-search-form" style="height: 33px;">
+            <input type="search" class="search big-search-input" name="q" placeholder="Search...">
+            <button class="material-symbols-outlined big-search-btn" style="display: block;">search</button>
+        </form>
+    </div>
+</div>
+
+
+
+
+<div class="hide-block modal-w modal-block"></div>
+<div class="cart-block modal-block">
+    <div class="black-header">
+        <button class="ar-up-btn" id="cart-close-btn">
+            <img src="{% static 'main/img/up.png' %}" alt="">
+        </button>
+        <h2>Cart</h2>
+    </div>
+    {% if len > 0 %}
+        <div class="cart-content">
+            <ul class="product-list" id="cart-list">
+                {% for items in cart %}
+                    <li class="prod-mini-card">
+                        <a href="{% url 'cart-view' items.variant.id %}">
+                            <img src="{{ items.image }}" alt="" class="cart-prod-img">
+                        </a>
+                        <form action="{% url 'delete' c_id=items.variant.id  %}" data-id="{{ items.variant.id  }}" class="delete-form">
+                            {% csrf_token %}
+                            <button type="submit" class="del-fromcart-btn">×</button>
+                        </form>
+                        
+                        <div class="inf-in-cart">
+                            <p class="prod-name-cart" data-sku="0001">{{ items.product.prod_name }}</p>
+                            <p class="in-cart-price price-nbm">${{ items.variant.price }}</p>
+                            <!--{% if user.is_authenticated %}
+                                <form action="{% url 'change_nbm' %}" class="sw-container">
+                                    {% csrf_token %}
+                                    <input type="submit" name="_down" class="sw-count btn-base" data-id="{{ items.id  }}" value="-" readonly>
+                                    <input type="number" name="" id="" class="count_input nbminp" min="1" max='99' data-id="{{ items.id  }}"
+                                        value="{{ items.quantity }}" readonly>
+                                    <input type="hidden" name="active" value="active">
+                                    <input type="submit" name="_up" class="sw-count btn-base" data-id="{{ items.id  }}" value="+" readonly>
+                                </form>
+                            {% endif %}-->
+                            <form action="{% url 'change_nbm' %}" class="sw-container">
+                                {% csrf_token %}
+                                <input type="submit" name="_down" class="sw-count btn-base" data-id="{{ items.variant.id  }}" value="-" readonly>
+                                <input type="number" name="" id="" class="count_input nbminp" min="1" max='99' data-id="{{ items.variant.id  }}"
+                                    value="{{ items.quantity }}" readonly>
+                                <input type="hidden" name="active" value="{{ items.active }}">
+                                <input type="submit" name="_up" class="sw-count btn-base" data-id="{{ items.variant.id  }}" value="+" readonly>
+                            </form>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+            <p class="total-price">Subtotal: <br> $<span class="tot-p plur">{{ total }}</span></p>
+            <a class="buy btn-base in-cart-side" href="{% url 'buying_page' %}">Buy Now</a>
+        </div>
+    {% else %}
+        <p class="empty-text">Cart is empty</p>
+    {% endif %}
+</div>
+
+<div class="link-side-block modal-block" id="links-block">
+    <button class="exit-links-block">
+        <img src="{% static 'main/img/ext.png' %}" alt="" class="ext-wh">
+        <img src="{% static 'main/img/ext-bl.png' %}" alt="" class="bl-ext">
+    </button>
+    <ul class="links-block">
+        <li class="side-link user-block">
+            {% if user.is_authenticated %}
+                <a class="" href="{% url 'profile' %}">
+                    <img src="{% static 'main/img/user.png' %}" alt="">
+                    <p>{{ user.username }}</p>
+                </a>
+            {% else %}
+                <a class="" href="{% url 'login' %}">
+                    <img src="{% static 'main/img/user.png' %}" alt="">
+                    <p>Log In</p>
+                </a>
+            {% endif %}
+        </li>
+        <li class="side-link"><a href="{% url 'home-page' %}" class="li-a">Home</a></li>
+        <li class="side-link"><a href="{% url 'cotalog' %}" class="li-a">Shop</a></li>
+        <li class="side-link"><a href="{% url 'about_page' %}" class="li-a">About Us</a></li>
+        <li class="side-link"><a href="{% url 'contact_page' %}" class="li-a">Contact</a></li>
+        <li class="side-link"><a href="{% url 'my_orders' %}" class="li-a">My Orders</a></li>
+        {% if user.is_superuser or has_perm %}
+        <li class="side-link"><a href="{% url 'admin-page' %}" class="li-a">Admin</a></li>
+        {% endif %}
+    </ul>
+</div>
+
+
+

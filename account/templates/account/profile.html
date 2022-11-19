@@ -1,0 +1,326 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% load thumbnail %}
+{% load easy_thumbnails_tags %}
+
+{% block title %} {{ user.username }} {% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'account/css/profile.css' %}"> 
+<link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="block user-dashboard">
+        <div class="prof-page-side">
+            <div class="user-inf-block content-inf-blocks">
+                <button class="more-deteils" id="lg-btn">
+                    <img src="{% static 'account/img/det-dots.png' %}" alt="">
+                </button>
+                <a href="{% url 'logout' %}" class="logout-lnk" id="lg-block">Выйти</a>
+                <img src="{% thumbnail prof.prof_img 90x90 crop %}" alt="" class="user-img" id="modal-img">
+                <p class="user-name">{{ user.username }}</p>
+                <p class="user-status admin">User</p>
+                <div class="lnk-btn-block">
+                    <button class="lnk-btn">{{ cart_count }}<br> Cart</button>
+                    <button class="lnk-btn">{{ comments.count }}<br> Comments</button>
+                </div>
+            </div>
+        
+            <ul class="user-pages-block content-inf-blocks">
+                <li class="page-li">Profile</li>
+                <li class="page-li">Comments</li>
+                <li class="page-li">My Cart</li>
+                <li class="page-li">My Wishlist</li>
+                <li class="page-li">My Orders</li>
+                <li class="page-li">My Account</li>
+                {% if request.user.is_superuser %}
+                    <li class="add-link"><a href="{% url 'admin-page' %}">Admin</a></li>
+                    <li class="add-link"><a href="{% url 'send_mails' %}">Newsletter</a></li>
+                {% endif %}
+            </ul>            
+        </div>
+        <div class="prof-page-side">
+                        <div class="pages-block content-inf-blocks">
+                <div class="pages">
+                    <button class="change-prof btn-base" href="/">
+                        <img src="{% static 'account/img/pen.png' %}" alt="">
+                        Edit profile
+                    </button>
+                    <div class="page-header">
+                        <h3>Profile</h3>
+                        <h5>Registration date: 20 avg. 2022y</h5>
+                    </div>
+                    <div class="about-me-block">
+                        <h6>About Me</h6>
+                        <div class="data-hidden" data-values="{{ bio }}"></div>
+                        <form action="{% url 'bio_add' %}" method="post" class="aboutme-form">
+                            {% csrf_token %}
+                            {{ form.bio }}
+                            <button class="hide-sbmt btn-base" type="submit">Add</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="pages">
+                    <div class="page-header">
+                        <h3>Comments</h3>
+                        <h5>Last comment</h5>
+                    </div>
+                    <div class="blog-comment">
+                        <ul class="comments">
+                            {% for comment in comments %}
+                                <li class="clearfix">
+                                    <a href="{% url 'products-page' comment.product.id %}">
+                                        <img src="{% thumbnail comment.profile.prof_img 90x90 crop %}" class="avatar" alt="">
+                                    </a>
+                                    <div class="post-comments">
+                                        <p class="meta">{{ comment.date.date }} <a href="#">{{ comment.user.username }}</a> says : <i
+                                                class="pull-right"></i></p>
+                                        <p>{{ comment.text }}</p>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="pages">
+                    <div class="page-header">
+                        <h3>My Cart</h3>
+                    </div>
+                    <div class="my-cart-block">
+                        {% if cart_count > 0 %}
+                            {% for item in cart %}
+                                <div class="mycart-items">
+                                    <a href="{% url 'cart-view' item.variant %}">
+                                        <img src="{{ item.img }}" alt="" class="cart-prod-img">
+                                    </a>
+                                    <form action="{% url 'delete' c_id=item.variant %}" data-id="{{ item.variant }}" class="delete-form">
+                                        {% csrf_token %}
+                                        <button type="submit" class="del-fromcart-btn big-del-btn">×</button>
+                                    </form>
+                                    <div class="inf-in-cart">
+                                        <p class="prod-name-cart">{{ item.name }}</p>
+                                        <p class="prod-price in-cart-price">${{ item.price }}</p>
+                                        <div class="some-btns">
+                                        <form action="{% url 'change_nbm' %}" class="sw-container">
+                                            {% csrf_token %}
+                                            <input type="submit" name="_down" class="sw-count btn-base" data-id="{{ item.variant }}" value="-" readonly>
+                                            <input type="number" name="" id="" class="nbminp" min="1" max='99' data-id="{{ item.variant }}"
+                                                value="{{ item.quant }}" readonly>
+                                            <input type="hidden" name="active" value="{{ item.active }}">
+                                            <input type="submit" name="_up" class="sw-count btn-base" data-id="{{ item.variant }}" value="+" readonly>
+                                        </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            <p class="total-price">Subtotal: <br> $<span class="tot-p">{{ total }}</span></p>
+                            <a class="buy-prod btn-base" href="{% url 'buying_page' %}">Buy Now</a>
+                        {% else %}
+                            <p class="empty-text">Cart is empty</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="pages">
+                    <div class="page-header">
+                        <h3>My Wish List</h3>
+                        <h5>Liked Products</h5>
+                    </div>
+                    <div class="my-cart-block">
+                        {% for item in wish_list %}
+                        <div class="mycart-items">
+                            <a href="{% url 'products-page' item.product.id %}">
+                                <img src="{{ item.product.get_default.image.all.first.file.cart.url }}" alt="" class="cart-prod-img">
+                            </a>
+                            <div class="inf-in-cart">
+                                <p class="prod-name-cart">{{ item.product.prod_name }}</p>
+                                <p class="prod-price in-cart-price">${{ item.product.price }}</p>
+                                <div class="some-btns">
+                                    <a class="buy btn-base" href="{% url 'products-page' item.product.id %}">Buy Now</a>
+                                    <a class="like-prod wish liked" type="submit" href="{% url 'unlike' p_id=item.product.id %}">
+                                        <img src="{% static 'main/img/liked.png' %}" alt="">
+                                    </a>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="pages">
+                    <div class="page-header">
+                        <h3>My Orders</h3>
+                        <h5>Last order: </h5>
+                    </div>
+                    <div class="orders-list my-cart-block">
+                        {% for order in orders %}
+                            <div class="order-card">
+                                <a href="{% url 'view_orders' order.id %}">
+                                    <img src="{{ order.order_img.cart.url }}" alt="" class="order-img">
+                                </a>
+                                <div class="order-inf">
+                                    <p class="order-id"><b>Order:</b> №{{ order.id }}</p>
+                                    <p class="prod-count"><b>Products:</b> {{ order.count }}</p>
+                                    <p class="order-price"><b>Total:</b> {{ order.price }}$ </p>
+                                    <p class="order-date"><b>Order date:</b> {{ order.date }}</p>
+                                </div>
+                                {% if order.status == 'Accepted' %}
+                                    <button class="status-btn btn-base accepted">{{ order.status }}</button>
+                                {% elif order.status == 'Performed' %}
+                                    <button class="status-btn btn-base performed">{{ order.status }}</button>
+                                {% else %}
+                                    <button class="status-btn btn-base delivered">{{ order.status }}</button>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="pages settings">
+                    <form action="{% url 'change_acc' %}" method="post">
+                        {% csrf_token %}
+                        <div class="page-header">
+                            <h3>My Account</h3>
+                            <h5>See and Update your profile</h5>
+                        </div>
+                        <div class="account-block">
+                            <h6>Information display</h6>
+                            <p>The user card is visible to all users of this site</p>
+                            <br>
+                            <div class="d-flex inputs">
+                                <div class="inp-side">
+                                    <label for="username">User name *</label><br>
+                                    {{ acc_form.username }}
+                                    <ul class="errorlist">
+                                        {% for error in prof_errors.username %}
+                                        <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                <div class="inp-side">
+                                    <br><br>
+                                    <a href="{% url 'password_change' %}">Change Password</a>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="account-block">
+                            <h6>Account</h6>
+                            <p>Update your personal information</p>
+                            <br>
+                            <p style="margin-bottom: 0;">Email for authorization:</p>
+                            <span class="mail">{{ user.email }}</span><br>
+                            <span class="warning">Authorization email cannot be changed</span>
+
+                            <div class="d-flex inputs">
+                                <div class="inp-side">
+                                    <label for="name">Name</label><br>
+                                    {{ acc_form.first_name }}<br>
+                                    <ul class="errorlist">
+                                        {% for error in prof_errors.first_name %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                    <br>
+                                    <label for="email">Email</label><br>
+                                    <input type="email" name="" id="" placeholder="{{ request.user.email }}" readonly><span class="material-symbols-outlined">
+                                        lock
+                                    </span>
+                                </div>
+                                <div class="inp-side">
+                                    <label for="name">Surename</label><br>
+                                    {{ acc_form.last_name }}<br>
+                                    <ul class="errorlist">
+                                        {% for error in prof_errors.last_name %}
+                                        <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                    <br>
+                                    <label for="tel">Tel.</label><br>
+                                    {{ acc_form.tel }}
+                                    <ul class="errorlist">
+                                        {% for error in prof_errors.tel %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="account-block">
+                            <h6>Account settings</h6>
+                            <p>Update your personal information</p>
+                            <br>
+                            <p>Social media:</p>
+                            <span class="warning">Enter links to your social media</span>
+
+                            <div class="d-flex inputs">
+                                <div class="inp-side">
+                                    <label for="name">Instagram</label><br>
+                                    {{ acc_form.instagram }}<br>
+                                    <ul class="errorlist">
+                                        {% for error in prof_errors.instagram %}
+                                        <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                    <br>
+                                    <label for="email">Facebook</label><br>
+                                    {{ acc_form.facebook }}
+                                    <ul class="errorlist">
+                                        {% for error in prof_errors.facebook %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                <div class="inp-side">
+                                    <label for="name">Twitter</label><br>
+                                    {{ acc_form.twitter }}<br>
+                                    <ul class="errorlist">
+                                        {% for error in prof_errors.twitter %}
+                                        <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                    <br>
+                                    <label for="tel">Vk</label><br>
+                                    {{ acc_form.wk }}
+                                    <ul class="errorlist">
+                                        {% for error in prof_errors.wk %}
+                                        <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="sbm-btns-block">
+                                <button class="btn-base sbros-btn">None</button>
+                                <button type="submit" class="chang-account btn-base">Save</button>
+                            </div>
+                        </div>                
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+    <div class="hidden-black-modal">
+        <div class="img-change-block">
+            <button class="exit-btns">×</button>
+            <form action="{% url 'img_change' %}" enctype="multipart/form-data" method="post">
+                {% csrf_token %}
+                <input type="file" name="prof_img" id="" class="profile-img-inp">
+                <button class="btn-base sbm-btn">Change</button>
+            </form>
+        </div>
+    
+        <div class="profile-image-block">
+            <img src="" name="image" alt="" id="profile-img">
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'account/js/profile.js' %}"></script>
+{% endblock %}

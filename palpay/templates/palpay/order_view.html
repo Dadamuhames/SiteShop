@@ -1,0 +1,85 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+
+{% block title %} Make Order {% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'account/css/profile.css' %}">
+<link rel="stylesheet" href="{% static 'palpay/css/palpay.css' %}">
+<link rel="stylesheet" href="{% static 'palpay/css/orders-page.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="content some-page">
+    <div class="add-content d-flex" style="height: auto;">
+        <div class="block form-content sides">
+            {% if order.user != None %}
+                <h4>User: <a href="{% url 'user' order.user.id %}" style="display: contents; font-size: 20px;">{{ order.user }}</a></h4>
+            {% endif %}
+            {% for items in order.product.all %}
+                <div class="order-product-card orders-page">
+                    <div class="slider">
+                        {% for src in items.variant.image.all %}
+                            <img src="{{ src.file.prod_photo.url }}" alt="" class="slide">
+                        {% endfor %}
+                        <div class="img-dots">
+                            {% for src in items.variant.image.all %}
+                                <button class="img-dot">
+                                    <img src="{{ src.file.btn_img.url }}" alt="">
+                                </button>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <h5><b>{{ items.product.prod_name }}</b></h5>
+                    <table class="inf-table">
+                        <tr class="title-tr">
+                            <th style="text-align: start;">Price</th>
+                            <th>Count</th>
+                            <th>Total</th>
+                        </tr>
+                        <tr>
+                            <td>${{ items.variant.price }}</td>
+                            <td>{{ items.quantity }}</td>
+                            <td>${{ items.total }}</td>
+                        </tr>
+                    </table>
+
+                </div>
+            {% endfor %}
+        </div>
+        <div class="sides slider-side">
+            <div class="cart-content">
+                <ul class="product-list buy-page">
+                    {% for items in order.product.all %}
+                        <li class="prod-mini-card filter-links" style="cursor: pointer;">
+                            <img src="{{ items.img.cart.url }}" alt="" class="cart-prod-img" style="width: 29%;">
+                            <div class="inf-in-cart">
+                                <p class="prod-name-cart" data-sku="0001" style="font-size: 18px;">{{ items.product.prod_name }}</p>
+                                <p class="in-cart-price" style="font-size: 16px;">${{ items.variant.price }}</p>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+                
+                
+                <p class="total-price mini-fix"> <b>Subtotal:</b> ${{ order.price }}</p>
+                <p class="total-price mini-fix"> <b>Count:</b> {{ order.product.count }}</p>
+                <p class="total-price mini-fix"> <b>Total Count:</b> {{ total_count }}</p>
+                {% if order.status == 'Accepted' %}
+                    <a href="{% url 'cansel_orders' order.id %}" class="total-price mini-fix">Cansel order 
+                        <span class="material-symbols-outlined">
+                            delete
+                        </span>
+                    </a>
+                {% else %}
+                    <p class="total-price mini-fix">Order can't be canseled after performation</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'main/js/prodpage.js' %}"></script>
+    <script src="{% static 'palpay/js/orders.js' %}"></script>
+</div>
+
+
+{% endblock %}
