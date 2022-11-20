@@ -395,7 +395,7 @@ class UsersList(ListView):
                 groups = self.request.GET.get('groups')
                 return User.objects.filter(Q(groups__id=groups))
 
-        return User.objects.all().all()
+        return User.objects.order_by('-id')
 
 
 class UserDetails(UpdateView):

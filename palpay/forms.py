@@ -9,7 +9,7 @@ import re
 class MakeOrder(forms.ModelForm):
     class Meta:
         model = Orders
-        fields = ['name', 'price', 'city', 'adres', 'your_number', 'cash', 'payme', 'email']
+        fields = ['name', 'price', 'city', 'adres', 'your_number', 'cash', 'payme', 'email', 'ship_type']
 
         widgets = {
             'your_number': TextInput(attrs={

@@ -21,6 +21,19 @@
                     {{ form.adres }}<br>
                     {{ form.email }}<br>
                     {{ form.your_number }}<br>
+                    <input type="hidden" name="ship_type" value="">
+
+                    <div class="ship-type-block">
+                        {% for type in ship_types %}
+                            <div class="ship-type" data-ship-id="{{ type.id }}">
+                                <p>{{ type.name }}</p>
+                                <p style="margin-top: 0;"><img src="{{ type.img.url }}" alt=""></p> 
+                            </div>
+                        {% endfor %}
+                    </div>
+
+
+
                     <input type="hidden" name="buying_type" value="{{ buy_type }}">
                     <input type="hidden" name="next_url" value="{{ request.path }}">
                     <div class="payment-typs">
@@ -87,6 +100,7 @@
     </div>
 
     <script src="{% static 'palpay/js/check.js' %}"></script>
+    <script src="{% static 'palpay/js/buy-page.js' %}"></script>
 </div>
 
 

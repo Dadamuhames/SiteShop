@@ -8,6 +8,16 @@ import datetime
 from easy_thumbnails.fields import ThumbnailerImageField
 from django.core.validators import MinValueValidator
 
+
+class ShippingType(models.Model):
+    name = models.CharField('Name', max_length=255)
+    price = models.FloatField('Price', validators=[MinValueValidator(0.00)])
+    img = ThumbnailerImageField(upload_to='shipping-img')
+
+    def __str__(self):
+        return self.name
+
+
 class Orders(models.Model):
     user = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE, related_name='order')
     user_name = models.CharField('Usernme', blank=True, null=True, max_length=255)
@@ -25,6 +35,7 @@ class Orders(models.Model):
     cash = models.BooleanField('Pay with cash', default=True)
     payme = models.BooleanField('Pay by Payme',  default=False)
     email = models.EmailField("Email")
+    ship_type = models.ForeignKey(ShippingType, on_delete=models.CASCADE, null=True, blank=True)
     date = models.DateTimeField('Date')
     item_count = models.IntegerField('Products Count', default=1)
     status = models.CharField('Status', max_length=255, choices=STATUS, default='Accepted')
@@ -32,6 +43,8 @@ class Orders(models.Model):
     def set_data(self):
         self.date = str(datetime.datetime.now())
 
+    def get_total(self):
+        return float(self.price) + float(self.ship_type.price)
     
     def set_name(self):
         if not self.user:
@@ -84,15 +97,5 @@ class OrderHistory(models.Model):
     def __str__(self):
         return str(self.order.id) + '' + self.status
 
-
-
-
-class ShippingType(models.Model):
-    name = models.CharField('Name', max_length=255)
-    price = models.FloatField('Price', validators=[MinValueValidator(1.00)])
-    img = ThumbnailerImageField(upload_to='shipping-img')
-
-    def __str__(self):
-        return self.name
 
         

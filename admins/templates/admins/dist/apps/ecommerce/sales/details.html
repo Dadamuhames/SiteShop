@@ -139,7 +139,7 @@
 													<!--end::Svg Icon-->Shipping Method
 												</div>
 											</td>
-											<td class="fw-bolder text-end">Flat Shipping Rate</td>
+											<td class="fw-bolder text-end">{{ order.ship_type.name }}</td>
 										</tr>
 										<!--end::Date-->
 									</tbody>
@@ -507,8 +507,8 @@
 												<!--end::Subtotal-->
 												<!--begin::VAT-->
 												<tr>
-													<td colspan="4" class="text-end">VAT (0%)</td>
-													<td class="text-end">$0.00</td>
+													<td colspan="4" class="text-end">Shipping Price</td>
+													<td class="text-end">${{ order.ship_type.price }}</td>
 												</tr>
 												<!--end::VAT-->
 												<!--begin::Shipping-->
@@ -516,7 +516,7 @@
 												<!--begin::Grand total-->
 												<tr>
 													<td colspan="4" class="fs-3 text-dark text-end">Grand Total</td>
-													<td class="text-dark fs-3 fw-boldest text-end">${{ order.price }}</td>
+													<td class="text-dark fs-3 fw-boldest text-end">${{ order.get_total }}</td>
 												</tr>
 												<!--end::Grand total-->
 											</tbody>

@@ -11,7 +11,7 @@ from urllib import request
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.messages import get_messages
-from .models import OrderedProducts, Orders
+from .models import OrderedProducts, Orders, ShippingType
 from .forms import MakeOrder, ChangeStatus
 from main.models import Cart, Products, Files, ProductVariants
 from .models import Orders, OrderedProducts, OrderHistory
@@ -44,7 +44,10 @@ def buy_page(request):
                 initial={'price': total, 'your_number': '+998'})
             for i in range(len(cart)):
                 cart[i]['id'] = i
-        return render(request, 'palpay/buy.html', {'form': form, 'cart': cart, 'total': total, 'buy_type': buying, 'errors': errors})
+
+
+        ship_typs = ShippingType.objects.all()
+        return render(request, 'palpay/buy.html', {'form': form, 'cart': cart, 'total': total, 'buy_type': buying, 'errors': errors, 'ship_types': ship_typs})
         
     
     else:
@@ -63,7 +66,6 @@ def make_order(request):
             cart_items = [it for it in list(request.session['cart']) if it['active'] == 'False']
 
 
-        prod = Products.objects.get(id=str(cart_items[0]['product']))
         variant = ProductVariants.objects.get(id=str(cart_items[0]['product_variant']))
         imgs = variant.image.first()
         if form.is_valid():
@@ -84,7 +86,6 @@ def make_order(request):
             form_items.order_img = imgs.file
             form_items.save()
             for it in cart_items:
-                pd = Products.objects.get(id=str(it['product']))
                 var = ProductVariants.objects.get(id=str(it['product_variant']))
                 OrderedProducts.objects.create(
                     order=form_items,

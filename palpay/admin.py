@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import OrderedProducts, Orders, OrderHistory
+from .models import OrderedProducts, Orders, OrderHistory, ShippingType
 # Register your models here.
 
 
@@ -28,3 +28,13 @@ class OrderHistoryAdmin(admin.ModelAdmin):
         modes = OrderHistory
 
 admin.site.register(OrderHistory, OrderHistoryAdmin)
+
+
+class ShipAdmin(admin.ModelAdmin):
+    list_display = [it.name for it in ShippingType._meta.fields]
+
+    class Meta:
+        models = ShippingType
+
+
+admin.site.register(ShippingType, ShipAdmin)
