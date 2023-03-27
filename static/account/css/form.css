@@ -1,0 +1,208 @@
+.block.form-content {
+    position: relative;
+    height: auto;
+    top: 130px;
+}
+
+
+.autin-form {
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.autin-form.reg {
+    height: 750px;
+}
+
+.autin-form > input, .autin-form > select {
+    width: 100%;
+    height: 40px;
+    outline: none;
+    margin-bottom: 30px;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    font-weight: 600;
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    border-bottom: 2px solid #000;
+    font-size: 14px;
+}
+
+.autin-form > input::-webkit-input-placeholder {
+    font-weight: 300;
+}
+
+
+.autin-form input:not(.error):hover {
+    border-bottom: 2px solid #000;
+}
+
+.autin-form > label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    display: block;
+}
+
+
+
+.atfc-btn {
+    display: block;
+    margin: 0 auto;
+    width: 130px;
+    height: 40px;
+    background-color: #000;
+    color: #fff;
+    box-sizing: border-box;
+}
+
+.atfc-btn:hover {
+    background-color: #fff;
+    color: #000;
+}
+
+.logout-qw {
+    display: block;
+    margin: 0;
+    width: 100%;
+    height: 300px;
+}
+
+
+.add-prod-form.autin-form {
+    width: 100%;
+    padding: 0;
+}
+
+.block.form-content.sides {
+    top: 0;
+}
+
+
+.add-prod-form > textarea {
+    width: 100%;
+    resize: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    border: 2px solid black;
+    outline: none;
+    padding: 20px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+
+.add-content {
+    height: 1000px;
+}
+
+.slider-side > .slider {
+    width: 85%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    box-sizing: border-box;
+    padding-top: 50px;
+}
+
+.slider-side .slide {
+    width: 60%;
+    height: 250px;
+    object-fit: contain;
+}
+
+
+.img-dots.form-dots {
+    top: 260px;
+}
+
+.help-lnk {
+    font-family: sans-serif;
+    color: #280949;
+}
+
+.hlp-block {
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+input.error::-webkit-input-placeholder {
+    color: red;
+}
+
+.check-email {
+    font-family: sans-serif;
+    font-size: 20px;
+    display: block;
+    height: 300px;
+    width: 60%;
+    margin: 0 auto;
+}
+
+p.errors {
+    font-family: sans-serif;
+    color: red;
+    margin-top: 0;
+    display: block;
+}
+
+.errorlist {
+    font-family: sans-serif;
+    list-style-type: none;
+    color: red;
+    padding: 0;
+}
+
+.social-auth-block {
+    display: flex;
+    margin: 0 auto;
+    position: relative;
+    justify-content: space-between;
+    margin-top: 40px;
+    flex-wrap: wrap;
+    width: 50%;
+}
+
+.google-login {
+    gap: 3px;
+    position: relative;
+    background: #fff;
+    display: flex;
+    width: 200px;
+    box-shadow: 0px 1px #757575;
+    font-family: sans-serif;
+    height: 35px;
+    border-radius: 8px;
+    border: 1px solid #757575;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    margin-bottom: 20px;
+}
+
+.google-login img {
+    display: block;
+    width: 30px;
+    height: 30px;
+}
+
+.google-login p {
+    text-align: center;
+    color: #757575;
+    display: block;
+    text-decoration: none;
+}
+
+.login-content {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.login-content > div {
+    width: 100%;
+}

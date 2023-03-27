@@ -1,0 +1,140 @@
+.contact-content {
+    position: relative;
+    padding: 0;
+    height: 650px ;
+}
+
+.contact-content > div {
+    padding-top: 120px;
+}
+
+.email-connect {
+    background-color: #fafafa;
+}
+
+.email-connect > h5 {
+    font-family: 'Anton',
+        sans-serif;
+    width: 100%;
+    font-size: 27px;
+    text-align: center;
+    font-weight: 200;
+    letter-spacing: 2px;
+    margin:0;
+}
+
+.less-size {
+    font-size: 14px;
+    font-family: 'Anton',
+            sans-serif;
+    width: 100%;
+    text-align: center;
+    font-weight: 200;
+    margin-top: 0;
+    letter-spacing: 3px;
+}
+
+.email-post-form {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 60px;
+}
+
+.email-post-form input, .email-post-form>textarea {
+    border: none;
+    outline: none;
+    padding: 10px;
+    padding-left: 20px;
+    width: 46%;
+    margin-left: 7px;
+    box-sizing: border-box;
+    border-bottom: 1px solid black;
+    font-family: 'Montserrat',
+        sans-serif;
+    background: none;
+    padding-right: 20px;
+}
+
+.email-post-form > textarea {
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+    resize: none;
+    height: 146px;
+    margin-top: 15px;
+}
+
+.contact-inf {
+    text-align: center;
+    width: 100%;
+}
+
+.contact-inf > h5, .adress-block > h5 {
+    font-family: 'Montserrat', sans-serif;
+    width: 100%;
+    font-size: 17px;
+    text-align: center;
+    font-weight: 900;
+    letter-spacing: 1px;
+    margin: 0;
+    margin-bottom: 23px;
+}
+
+.mini-hr {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    top: 4px;
+    width: 50%;
+}
+
+
+.contact-inf > p {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+}
+
+
+.adress-list {
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+    list-style-type: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    padding: 0;
+    letter-spacing: 1px;
+}
+
+.adress-list > li {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.shop-names {
+    padding-right: 10px;
+    border-right: 1px solid black;
+    margin-right: 10px;
+    font-weight: 900;
+}
+
+.send-email {
+    margin: 0 auto;
+    display: block;
+    box-sizing: border-box;
+    width: 185px;
+    height: 36px;
+    color: white;
+    margin-top: 15px;
+    background: #000;
+    border: 1px solid black;
+}
+
+.mail-inp:hover, .mail-inp:focus {
+    border-bottom: 3px solid black;
+}
+
+.send-email:hover {
+    background-color: rgba(255, 255, 255, 0);
+    color: #000;
+}
