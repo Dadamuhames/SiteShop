@@ -6,7 +6,7 @@ from django.views.static import serve
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.conf.urls import handler400, handler403, handler404, handler500
 
-
+ 
 urlpatterns = [
     path('admin-panel/', admin.site.urls),
     path('', include('main.urls')),

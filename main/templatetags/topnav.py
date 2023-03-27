@@ -14,7 +14,7 @@ def show_topnav(context):
     request = context['request']
     total = 0
 
-    has_perm = request.user.has_perm("auth.view_admin")
+    #has_perm = request.user.has_perm("auth.view_admin")
     #if request.user.is_authenticated:
     #    final_lst = Cart.objects.filter(owner=request.user).filter(active=True)
     #    total = sum([it.price for it in final_lst])
@@ -42,4 +42,4 @@ def show_topnav(context):
         total = sum([it['price'] for it in cart_items])
 
 
-    return {'user': request.user, 'cart' : final_lst[::-1], 'len': len(final_lst), 'total': total, 'has_perm': has_perm}  # Возвращаем контекст
+    return {'user': request.user, 'cart' : final_lst[::-1], 'len': len(final_lst), 'total': total}  # Возвращаем контекст

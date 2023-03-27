@@ -19,7 +19,7 @@ urlpatterns = [
     path('count', views.chng_count, name='change_nbm'),
     path('confirm/<str:code>/<int:id>',  views.confirm_pass, name='confirm'),
     path('reset_pass', views.forgot_pass, name='forgot_pass_page'),
-    path('', include('social_django.urls', namespace='social')),
+    #path('', include('social_django.urls', namespace='social')),
     path('password-change/', PasswordChangeView.as_view(
         template_name = 'account/change_pass.html'
     ), name='password_change'),

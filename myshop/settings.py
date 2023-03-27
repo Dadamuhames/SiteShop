@@ -18,8 +18,7 @@ SECRET_KEY = 'django-insecure-gti+5u3@zx(q^qki%urii*!^=js7uj-qzj*(w7qxog7ovryazx
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com',
-                 '.ngrok.io', 'localhost']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -32,11 +31,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main', 'cart', 'account',
-    'rest_framework', 'palpay',
-    'social_django', 'django_filters',
-    'easy_thumbnails', 'paycomuz',
-    'admins', 'colorfield'
+    'rest_framework', 'palpay', 'django_filters',
+    'easy_thumbnails',  'paycomuz',
+    'admins', 'colorfield',
 ]
+
+#'social_django',
 
 MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -102,11 +102,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-AUTHENTICATION_BACKENDS = (
-    'social_core.backends.google.GoogleOAuth2',
-    'social_core.backends.telegram.TelegramAuth',
-    'django.contrib.auth.backends.ModelBackend',
-)
 
 SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin-allow-popups'
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '110430500482-pseofk25u9bo7n2tils1cok5cqg39nds.apps.googleusercontent.com'
